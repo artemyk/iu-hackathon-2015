@@ -21,15 +21,29 @@ figure, imagesc(FC); axis square; colormap jet; xlabel('regions'); ylabel('regio
 load('../../ordering_matrices/yeo_RS7.mat');
 
 figure, imagesc(FC(yeoOrder,yeoOrder)); axis square; colormap jet; xlabel('regions'); ylabel('regions');
- 
+title('FC all')
 avgSignal = mean(Taal_lp');
 figure, plot(avgSignal)
-threshold =2;
+threshold =1.00;
 mask = abs(avgSignal)<threshold;
 
 nnz(~mask)
 
 FCclean=corr(Taal_lp(mask,:));
 figure, imagesc(FCclean(yeoOrder,yeoOrder)); axis square; colormap jet; xlabel('regions'); ylabel('regions');
+title('FC clean')
+
+figure;
+N=size(FC,1);
+maskut = triu(true(N,N),1);
+subplot(1,3,1);
+hist(FC(mask),50); axis square;
+subplot(1,3,2);
+hist(FCclean(mask),50); axis square; 
+subplot(1,3,3);
+plot(FC(mask),FCclean(mask),'ko'); axis square;
+
+
+
 
 
