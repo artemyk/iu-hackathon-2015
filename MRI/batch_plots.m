@@ -47,10 +47,11 @@ for i =1:3
     SC = M_w;  %(yeoOrder,yeoOrder);
     ncomm = unique(yeoROIs);
     for cc1 = 1:length(ncomm)
-        ff = find(yeoOrder == ncomm(cc1));
+        ff = find(yeoROIs == ncomm(cc1));
         for cc2 = cc1:length(ncomm)
-            gg = find(yeoOrder == ncomm(cc2));
-            rsn_dens(cc1,cc2) = nnz(SC(ff,gg))/2;
+            gg = find(yeoROIs == ncomm(cc2));
+            rsn_dens(cc1,cc2) = nnz(SC(ff,gg));
+            rsn_dens(cc1,cc2) = rsn_dens(cc1,cc2)./(length(ff)*length(gg));
         end
     end
     
