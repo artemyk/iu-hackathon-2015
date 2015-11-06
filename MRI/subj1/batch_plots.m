@@ -13,13 +13,23 @@ imagesc(log2(M_w)); colormap jet; axis square; colorbar
 
 load FC.mat
 
-figure, imagesc(Taal'); colormap jet; xlabel('time'); ylabel('regions');
+figure, imagesc(Taal_lp'); colormap jet; xlabel('time'); ylabel('regions');
 
-FC=corr(Taal); % pairwise pearson correllations between every two time series.
+FC=corr(Taal_lp); % pairwise pearson correllations between every two time series.
 figure, imagesc(FC); axis square; colormap jet; xlabel('regions'); ylabel('regions');
 
-load('../../ordering_matrices/yeo_RS7.mat')
+load('../../ordering_matrices/yeo_RS7.mat');
 
 figure, imagesc(FC(yeoOrder,yeoOrder)); axis square; colormap jet; xlabel('regions'); ylabel('regions');
+ 
+avgSignal = mean(Taal_lp');
+figure, plot(avgSignal)
+threshold =2;
+mask = abs(avgSignal)<threshold;
+
+nnz(~mask)
+
+FCclean=corr(Taal_lp(mask,:));
+figure, imagesc(FCclean(yeoOrder,yeoOrder)); axis square; colormap jet; xlabel('regions'); ylabel('regions');
 
 
