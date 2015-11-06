@@ -18,3 +18,8 @@ figure, imagesc(Taal'); colormap jet; xlabel('time'); ylabel('regions');
 FC=corr(Taal); % pairwise pearson correllations between every two time series.
 figure, imagesc(FC); axis square; colormap jet; xlabel('regions'); ylabel('regions');
 
+load('../../ordering_matrices/yeo_RS7.mat')
+
+figure, imagesc(FC(yeoOrder,yeoOrder)); axis square; colormap jet; xlabel('regions'); ylabel('regions');
+
+
